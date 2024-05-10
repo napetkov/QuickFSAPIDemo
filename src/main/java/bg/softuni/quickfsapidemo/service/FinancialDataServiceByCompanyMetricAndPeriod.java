@@ -19,7 +19,9 @@ public class FinancialDataServiceByCompanyMetricAndPeriod {
 //    EMR/gross_profit?period=FY
     public Mono<String> getCompanyDataServiceByCompanyMetricAndPeriod(String companySymbol,String metric, String period) {
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("{symbol}/{metric}/{period}").build(companySymbol,metric,period)) // Use path variables for flexibility
+                .uri(uriBuilder -> uriBuilder.path("{symbol}/{metric}")
+                        .queryParam("period", "{period}")
+                        .build(companySymbol, metric, period)) // Use path variables for flexibility
                 .retrieve() // Retrieve the response
                 .onStatus(status -> !status.is2xxSuccessful(), response -> {
                     // Handle non-2xx status codes with custom logic
