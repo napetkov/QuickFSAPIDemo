@@ -6,18 +6,18 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-public class FinancialDataService {
+public class FinancialAllDataServiceByCompany {
 
     private final WebClient webClient;
 
-    public FinancialDataService(WebClient.Builder webClientBuilder, @Value("${QUICKFS_API_KEY}") String apiKey) {
+    public FinancialAllDataServiceByCompany(WebClient.Builder webClientBuilder, @Value("${QUICKFS_API_KEY}") String apiKey) {
         this.webClient = webClientBuilder
                 .baseUrl("https://public-api.quickfs.net/v1/data/all-data/")
                 .defaultHeader("X-QFS-API-Key",apiKey)
                 .build();
     }
 
-    public Mono<String> getCompanyFinancialData(String companySymbol) {
+    public Mono<String> getCompanyFinancialAllDataByCompany(String companySymbol) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("{symbol}").build(companySymbol)) // Use path variables for flexibility
                 .retrieve() // Retrieve the response

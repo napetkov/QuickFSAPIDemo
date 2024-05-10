@@ -1,6 +1,6 @@
 package bg.softuni.quickfsapidemo.controller;
 
-import bg.softuni.quickfsapidemo.service.FinancialDataService;
+import bg.softuni.quickfsapidemo.service.FinancialAllDataServiceByCompany;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,15 +9,15 @@ import reactor.core.publisher.Mono;
 
 @RestController
 public class FinancialDataController {
-    private final FinancialDataService financialDataService;
+    private final FinancialAllDataServiceByCompany financialAllDataServiceByCompany;
 
-    public FinancialDataController(FinancialDataService financialDataService) {
-        this.financialDataService = financialDataService;
+    public FinancialDataController(FinancialAllDataServiceByCompany financialAllDataServiceByCompany) {
+        this.financialAllDataServiceByCompany = financialAllDataServiceByCompany;
     }
 
     @GetMapping("/company/{symbol}/financial-data")
-    public Mono<ResponseEntity<String>> getCompanyFinancialData(@PathVariable("symbol") String symbol) {
-        return financialDataService.getCompanyFinancialData(symbol)
+    public Mono<ResponseEntity<String>> getCompanyFinancialAllDataByCompany(@PathVariable("symbol") String symbol) {
+        return financialAllDataServiceByCompany.getCompanyFinancialAllDataByCompany(symbol)
                 .map(data -> {
                     // Here, you could parse and manipulate the JSON data as needed
                     // For simplicity, let's just return the raw data
