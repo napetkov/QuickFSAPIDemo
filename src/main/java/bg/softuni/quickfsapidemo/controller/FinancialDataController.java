@@ -24,4 +24,17 @@ public class FinancialDataController {
                     return ResponseEntity.ok(data);
                 });
     }
+
+    @GetMapping("/company/{symbol}/{metric}/{period}")
+    public Mono<ResponseEntity<String>> getCompanyFinancialAllDataByCompany(
+            @PathVariable("symbol") String symbol,
+            @PathVariable("metric") String metric,
+            @PathVariable("period") String period) {
+        return financialAllDataServiceByCompany.getCompanyFinancialAllDataByCompany(symbol)
+                .map(data -> {
+                    // Here, you could parse and manipulate the JSON data as needed
+                    // For simplicity, let's just return the raw data
+                    return ResponseEntity.ok(data);
+                });
+    }
 }
